@@ -1,9 +1,10 @@
 package at.spengergasse.trauner.interfaces;
 
 /**
- * Darstellung des ausgewählten Bildes in der Benutzeroberfläche
+ * an image panel shows the image which is currently selected
+ * in the patient browser.
+ * the image panel must actively retrieve the selected image
+ * and show it
  */
-public interface IImagePanel {
-
-
+public interface IImagePanel extends IModuleBase, IModuleUI {
 }

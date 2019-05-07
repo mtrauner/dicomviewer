@@ -4,12 +4,16 @@ import at.spengergasse.trauner.entities.Instance;
 
 import java.awt.image.BufferedImage;
 
-public interface IPixelMapper {
-
+/**
+ * a pixel mapper calculates a Buffered image from the pixel data
+ * contained in the DICOM file referenced by the given Instance object
+ */
+public interface IPixelMapper extends  IModuleBase {
     /**
-     * Erstellt Bild aus DICOM-Bild
-     * @param i ausgewähltes DICOM-Bild
-     * @return Bild
+     * maps (calculates) the image from the pixel data of instance
+     * @param instance reference to instance from which to calculate BufferedImage
+     * @return new BufferedImage
+     * @throws Exception if pixel data cannot be read from DICOM foöe
      */
-    BufferedImage map(Instance i);
+    BufferedImage Map(Instance instance) throws Exception;
 }

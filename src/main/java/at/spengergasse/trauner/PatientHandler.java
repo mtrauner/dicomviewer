@@ -4,6 +4,10 @@ import at.spengergasse.trauner.entities.Instance;
 import at.spengergasse.trauner.entities.Patient;
 import at.spengergasse.trauner.entities.Series;
 import at.spengergasse.trauner.entities.Study;
+import at.spengergasse.trauner.interfaces.Builder;
+import at.spengergasse.trauner.interfaces.IObservable;
+import at.spengergasse.trauner.interfaces.IObserver;
+import at.spengergasse.trauner.interfaces.IPatientRepository;
 import org.dcm4che2.data.DicomObject;
 import org.dcm4che2.data.Tag;
 import org.dcm4che2.io.DicomInputStream;
@@ -17,12 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class PatientHandler {
+public class PatientHandler implements IPatientRepository {
 
-    private static List<Patient> patientList = new ArrayList<>();
+    private List<Patient> patientList = new ArrayList<>();
 
-    public static void Persist(String directoryPath) throws IOException {
-        patientList = PatientHandler.GetPatients(directoryPath);
+    public void Persist(String directoryPath) throws IOException {
+        patientList = LoadPatients(directoryPath);
         EntityManager em = Persistence
                 .createEntityManagerFactory("viewer")
                 .createEntityManager();
@@ -32,7 +36,7 @@ public class PatientHandler {
         em.close();
     }
 
-    public static List<Patient> GetFromDatabase(){
+    public List<Patient> GetPatients(){
         EntityManager em = Persistence
                 .createEntityManagerFactory("viewer")
                 .createEntityManager();
@@ -43,7 +47,17 @@ public class PatientHandler {
         return patientList;
     }
 
-    public static List<Patient> GetPatients(String path) throws IOException {
+    @Override
+    public void Hinzufuegen(Patient p) throws Exception {
+
+    }
+
+    @Override
+    public void Entfernen(Patient p) throws Exception {
+
+    }
+
+    public List<Patient> LoadPatients(String path) throws IOException {
 
         File directory = new File(path);
         List<File> fileList = FindDicomFiles(directory);
@@ -75,8 +89,7 @@ public class PatientHandler {
         return patientList;
     }
 
-    private static Patient FindPatient(String patID){
-
+    private Patient FindPatient(String patID){
         if(patientList != null) {
             for (Patient patient : patientList) {
 
@@ -88,7 +101,7 @@ public class PatientHandler {
         return null;
     }
 
-    private static List<File> FindDicomFiles(File dir){
+    private List<File> FindDicomFiles(File dir){
         List<File> files = new ArrayList<>();
         for(File f : Objects.requireNonNull(dir.listFiles())){
             if (f.isDirectory())
@@ -103,5 +116,25 @@ public class PatientHandler {
 
     private static boolean IsDicom(File f) {
         return f.getName().toLowerCase().endsWith(".dcm");
+    }
+
+    @Override
+    public void Configure(Builder builder) {
+
+    }
+
+    @Override
+    public void registerObserver(IObserver o) {
+
+    }
+
+    @Override
+    public void removeObserver(IObserver o) {
+
+    }
+
+    @Override
+    public void changed(IObservable o) {
+
     }
 }

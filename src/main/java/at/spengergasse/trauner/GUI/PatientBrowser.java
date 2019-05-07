@@ -4,6 +4,10 @@ import at.spengergasse.trauner.entities.Instance;
 import at.spengergasse.trauner.entities.Patient;
 import at.spengergasse.trauner.entities.Series;
 import at.spengergasse.trauner.entities.Study;
+import at.spengergasse.trauner.interfaces.Builder;
+import at.spengergasse.trauner.interfaces.IObservable;
+import at.spengergasse.trauner.interfaces.IObserver;
+import at.spengergasse.trauner.interfaces.IPatientBrowser;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -12,7 +16,7 @@ import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 import java.text.SimpleDateFormat;
 
-public class PatientBrowser extends JTree {
+public class PatientBrowser extends JTree implements IPatientBrowser {
     private DefaultMutableTreeNode rootNode;
     private DefaultTreeModel model;
 
@@ -48,6 +52,51 @@ public class PatientBrowser extends JTree {
             }
         }
         model.reload();
+    }
+
+    @Override
+    public Patient GewaehlterPatient() {
+        return null;
+    }
+
+    @Override
+    public Study GewaehlteStudie() {
+        return null;
+    }
+
+    @Override
+    public Series GewaehlteSerie() {
+        return null;
+    }
+
+    @Override
+    public Instance GewaehlteInstanz() {
+        return null;
+    }
+
+    @Override
+    public void Configure(Builder builder) {
+
+    }
+
+    @Override
+    public JComponent UIComponent() {
+        return null;
+    }
+
+    @Override
+    public void registerObserver(IObserver o) {
+
+    }
+
+    @Override
+    public void removeObserver(IObserver o) {
+
+    }
+
+    @Override
+    public void changed(IObservable o) {
+
     }
 
     private static class Renderer extends DefaultTreeCellRenderer{

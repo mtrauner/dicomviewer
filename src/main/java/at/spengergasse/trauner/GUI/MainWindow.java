@@ -22,6 +22,7 @@ public class MainWindow extends JFrame {
     private PatientBrowser patientBrowser = new PatientBrowser();
     private ImagePanel imagePanel = new ImagePanel();
     private JFileChooser dicomFileChooser = new JFileChooser();
+    private PatientHandler patientHandler = new PatientHandler();
 
 
     private void InitFrame(){
@@ -73,7 +74,7 @@ public class MainWindow extends JFrame {
                 if(returnVal == JFileChooser.APPROVE_OPTION){
                     File file = dicomFileChooser.getSelectedFile();
                     try {
-                        PatientHandler.GetPatients(file.getAbsolutePath());
+                        patientHandler.LoadPatients(file.getAbsolutePath());
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
@@ -85,7 +86,7 @@ public class MainWindow extends JFrame {
     }
 
     private void AddToBrowser(){
-        for(Patient p : PatientHandler.GetFromDatabase()){
+        for(Patient p : patientHandler.GetPatients()){
             patientBrowser.add(p);
         }
     }

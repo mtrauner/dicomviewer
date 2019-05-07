@@ -1,6 +1,7 @@
 package at.spengergasse.trauner.GUI;
 
 import at.spengergasse.trauner.LookupTable;
+import at.spengergasse.trauner.interfaces.*;
 import org.dcm4che2.data.DicomObject;
 import org.dcm4che2.data.Tag;
 import org.dcm4che2.io.DicomInputStream;
@@ -10,7 +11,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-public class ImagePanel extends JPanel {
+public class ImagePanel extends JPanel implements IImagePanel {
 
     private BufferedImage image;
     private File dcmFile;
@@ -70,5 +71,30 @@ public class ImagePanel extends JPanel {
         if(image != null){
             graphics.drawImage(image,0,0,this);
         }
+    }
+
+    @Override
+    public void Configure(Builder builder) {
+
+    }
+
+    @Override
+    public JComponent UIComponent() {
+        return null;
+    }
+
+    @Override
+    public void registerObserver(IObserver o) {
+
+    }
+
+    @Override
+    public void removeObserver(IObserver o) {
+
+    }
+
+    @Override
+    public void changed(IObservable o) {
+
     }
 }

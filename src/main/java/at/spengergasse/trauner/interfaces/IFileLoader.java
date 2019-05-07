@@ -2,11 +2,17 @@ package at.spengergasse.trauner.interfaces;
 
 import java.io.File;
 
-public interface IFileLoader {
-
+/**
+ * a file loader is used for loading all the DICOM files
+ * contained in the folder
+ */
+public interface IFileLoader extends IModuleBase {
     /**
-     * Lade DICOM-Dateien aus Verzeichnis
-     * @param f Verzeichnis
+     * load DICOM files of this folder,
+     * assemble object model (GetPatients, Studies, ...)
+     * an pass patients to patient repository
+     * @param folder containing dicom files
+     * @throws Exception if read errors occur
      */
-    void LoadFolder(File f);
+    void LadeVerzeichnis(File folder) throws Exception;
 }
