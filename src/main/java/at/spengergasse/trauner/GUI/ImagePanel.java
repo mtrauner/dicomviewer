@@ -1,6 +1,7 @@
 package at.spengergasse.trauner.GUI;
 
-import at.spengergasse.trauner.LookupTable;
+import at.spengergasse.trauner.tools.Builder;
+import at.spengergasse.trauner.tools.LookupTable;
 import at.spengergasse.trauner.interfaces.*;
 import org.dcm4che2.data.DicomObject;
 import org.dcm4che2.data.Tag;

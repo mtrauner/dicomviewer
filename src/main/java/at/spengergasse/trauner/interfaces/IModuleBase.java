@@ -1,6 +1,8 @@
 package at.spengergasse.trauner.interfaces;
 
 
+import at.spengergasse.trauner.tools.Builder;
+
 /**
  * base interface for all module_interfaces:
  * essentially every module shall implement oberver- and observable

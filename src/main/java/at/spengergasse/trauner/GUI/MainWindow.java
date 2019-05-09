@@ -1,6 +1,6 @@
 package at.spengergasse.trauner.GUI;
 
-import at.spengergasse.trauner.PatientHandler;
+import at.spengergasse.trauner.tools.PatientRepository;
 import at.spengergasse.trauner.entities.Patient;
 
 import javax.swing.*;
@@ -22,7 +22,7 @@ public class MainWindow extends JFrame {
     private PatientBrowser patientBrowser = new PatientBrowser();
     private ImagePanel imagePanel = new ImagePanel();
     private JFileChooser dicomFileChooser = new JFileChooser();
-    private PatientHandler patientHandler = new PatientHandler();
+    private PatientRepository patientRepository = new PatientRepository();
 
 
     private void InitFrame(){
@@ -66,7 +66,7 @@ public class MainWindow extends JFrame {
         this.setJMenuBar(menuBar);
         JMenu fileMenu = new JMenu("Datei");
         menuBar.add(fileMenu);
-        JMenuItem loadDirectoryMenu = new JMenuItem("Dateien öffnen...");
+        JMenuItem loadDirectoryMenu = new JMenuItem("Datei öffnen...");
         loadDirectoryMenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -74,7 +74,7 @@ public class MainWindow extends JFrame {
                 if(returnVal == JFileChooser.APPROVE_OPTION){
                     File file = dicomFileChooser.getSelectedFile();
                     try {
-                        patientHandler.LoadPatients(file.getAbsolutePath());
+                        patientRepository.LoadPatients(file.getAbsolutePath());
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
@@ -86,7 +86,7 @@ public class MainWindow extends JFrame {
     }
 
     private void AddToBrowser(){
-        for(Patient p : patientHandler.GetPatients()){
+        for(Patient p : patientRepository.GetPatients()){
             patientBrowser.add(p);
         }
     }

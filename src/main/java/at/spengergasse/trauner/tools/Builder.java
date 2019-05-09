@@ -1,4 +1,6 @@
-package at.spengergasse.trauner.interfaces;
+package at.spengergasse.trauner.tools;
+
+import at.spengergasse.trauner.interfaces.*;
 
 /**
  * the builder is a central module which wires all the other modules

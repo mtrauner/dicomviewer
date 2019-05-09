@@ -1,10 +1,9 @@
-package at.spengergasse.trauner;
+package at.spengergasse.trauner.tools;
 
 import at.spengergasse.trauner.entities.Instance;
 import at.spengergasse.trauner.entities.Patient;
 import at.spengergasse.trauner.entities.Series;
 import at.spengergasse.trauner.entities.Study;
-import at.spengergasse.trauner.interfaces.Builder;
 import at.spengergasse.trauner.interfaces.IObservable;
 import at.spengergasse.trauner.interfaces.IObserver;
 import at.spengergasse.trauner.interfaces.IPatientRepository;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class PatientHandler implements IPatientRepository {
+public class PatientRepository implements IPatientRepository {
 
     private List<Patient> patientList = new ArrayList<>();
 

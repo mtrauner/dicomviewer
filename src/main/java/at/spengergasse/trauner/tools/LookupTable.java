@@ -1,6 +1,10 @@
-package at.spengergasse.trauner;
+package at.spengergasse.trauner.tools;
 
-public class LookupTable {
+import at.spengergasse.trauner.interfaces.ILookupTable;
+import at.spengergasse.trauner.interfaces.IObservable;
+import at.spengergasse.trauner.interfaces.IObserver;
+
+public class LookupTable implements ILookupTable {
 
     private int width;
     private int centre;
@@ -48,5 +52,25 @@ public class LookupTable {
         else{
             throw new IllegalArgumentException();
         }
+    }
+
+    @Override
+    public void Configure(Builder builder) {
+
+    }
+
+    @Override
+    public void registerObserver(IObserver o) {
+
+    }
+
+    @Override
+    public void removeObserver(IObserver o) {
+
+    }
+
+    @Override
+    public void changed(IObservable o) {
+
     }
 }

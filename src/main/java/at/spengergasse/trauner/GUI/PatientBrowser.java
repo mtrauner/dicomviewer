@@ -4,7 +4,7 @@ import at.spengergasse.trauner.entities.Instance;
 import at.spengergasse.trauner.entities.Patient;
 import at.spengergasse.trauner.entities.Series;
 import at.spengergasse.trauner.entities.Study;
-import at.spengergasse.trauner.interfaces.Builder;
+import at.spengergasse.trauner.tools.Builder;
 import at.spengergasse.trauner.interfaces.IObservable;
 import at.spengergasse.trauner.interfaces.IObserver;
 import at.spengergasse.trauner.interfaces.IPatientBrowser;
