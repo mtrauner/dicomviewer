@@ -25,7 +25,7 @@ public class ControlPanel extends JPanel implements IControlPanel {
 
     @Override
     public void Configure(Builder builder) {
-
+//ugujgg
     }
 
     @Override
