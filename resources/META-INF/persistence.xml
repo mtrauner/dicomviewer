@@ -3,10 +3,10 @@
 
     <persistence-unit name="viewer">
 
-        <class>at.spengergasse.trauner.entities.Patient</class>
-        <class>at.spengergasse.trauner.entities.Study</class>
-        <class>at.spengergasse.trauner.entities.Series</class>
-        <class>at.spengergasse.trauner.entities.Instance</class>
+        <class>at.spengergasse.hbgm.entities.Patient</class>
+        <class>at.spengergasse.hbgm.entities.Study</class>
+        <class>at.spengergasse.hbgm.entities.Series</class>
+        <class>at.spengergasse.hbgm.entities.Instance</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
