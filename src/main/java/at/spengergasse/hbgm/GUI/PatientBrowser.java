@@ -15,18 +15,27 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 import java.text.SimpleDateFormat;
+import java.util.HashSet;
+import java.util.Set;
 
-public class PatientBrowser extends JTree implements IPatientBrowser {
-    private DefaultMutableTreeNode rootNode;
-    private DefaultTreeModel model;
+public class PatientBrowser implements IPatientBrowser {
 
-    PatientBrowser(){
-        rootNode = new DefaultMutableTreeNode();
-        model = new DefaultTreeModel(rootNode);
-        this.setModel(model);
-        this.setCellRenderer(new Renderer());
+    private DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode();
+    private DefaultTreeModel model = new DefaultTreeModel(rootNode);
+    private Set<IObserver> observers = new HashSet<>();
+    private JTree tree = new JTree();
+
+    public PatientBrowser(){
+        tree.addTreeSelectionListener(x -> selectionChanged());
+        tree.setModel(model);
+        tree.setCellRenderer(new Renderer());
     }
 
+    private void selectionChanged(){
+        for (IObserver o :observers){
+            o.changed(this);
+        }
+    }
 
     public void add(Patient p){
         // patient is the "user object" of this node
@@ -81,17 +90,17 @@ public class PatientBrowser extends JTree implements IPatientBrowser {
 
     @Override
     public JComponent UIComponent() {
-        return null;
+        return tree;
     }
 
     @Override
     public void registerObserver(IObserver o) {
-
+        observers.add(o);
     }
 
     @Override
     public void removeObserver(IObserver o) {
-
+        observers.remove(o);
     }
 
     @Override

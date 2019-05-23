@@ -3,9 +3,9 @@ package at.spengergasse.hbgm.GUI;
 import at.spengergasse.hbgm.interfaces.IImagePanel;
 import at.spengergasse.hbgm.interfaces.IObservable;
 import at.spengergasse.hbgm.interfaces.IObserver;
+import at.spengergasse.hbgm.interfaces.IPatientBrowser;
 import at.spengergasse.hbgm.tools.Builder;
 import at.spengergasse.hbgm.tools.LookupTable;
-import at.spengergasse.trauner.interfaces.*;
 import org.dcm4che2.data.DicomObject;
 import org.dcm4che2.data.Tag;
 import org.dcm4che2.io.DicomInputStream;
@@ -19,6 +19,7 @@ public class ImagePanel extends JPanel implements IImagePanel {
 
     private BufferedImage image;
     private File dcmFile;
+    private IPatientBrowser browser;
 
     private void LoadImage(){
         try {
@@ -79,12 +80,13 @@ public class ImagePanel extends JPanel implements IImagePanel {
 
     @Override
     public void Configure(Builder builder) {
-
+        browser = builder.getPatientBrowser();
+        browser.registerObserver(this);
     }
 
     @Override
     public JComponent UIComponent() {
-        return null;
+        return this;
     }
 
     @Override
@@ -99,6 +101,6 @@ public class ImagePanel extends JPanel implements IImagePanel {
 
     @Override
     public void changed(IObservable o) {
-
+        browser.GewaehlteInstanz();
     }
 }

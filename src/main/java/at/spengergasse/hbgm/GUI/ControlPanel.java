@@ -6,8 +6,16 @@ import at.spengergasse.hbgm.interfaces.IObserver;
 import at.spengergasse.hbgm.tools.Builder;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ControlPanel extends JPanel implements IControlPanel {
+
+    public ControlPanel(){
+
+    }
+
     @Override
     public int getCenter() {
         return 0;
@@ -25,12 +33,12 @@ public class ControlPanel extends JPanel implements IControlPanel {
 
     @Override
     public void Configure(Builder builder) {
-//ugujgg
+
     }
 
     @Override
     public JComponent UIComponent() {
-        return null;
+        return this;
     }
 
     @Override

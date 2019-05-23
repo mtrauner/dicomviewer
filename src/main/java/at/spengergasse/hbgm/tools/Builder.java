@@ -1,7 +1,6 @@
 package at.spengergasse.hbgm.tools;
 
 import at.spengergasse.hbgm.interfaces.*;
-import at.spengergasse.trauner.interfaces.*;
 
 /**
  * the builder is a central module which wires all the other modules

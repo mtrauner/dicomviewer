@@ -1,5 +1,6 @@
 package at.spengergasse.hbgm.GUI;
 
+import at.spengergasse.hbgm.tools.Builder;
 import at.spengergasse.hbgm.tools.PatientRepository;
 import at.spengergasse.hbgm.entities.Patient;
 
@@ -19,13 +20,9 @@ public class MainWindow extends JFrame {
     private JScrollPane controlContainer = new JScrollPane();
     private JPanel imageContainer = new JPanel();
     private JLabel statusBar = new JLabel("Status");
-    private PatientBrowser patientBrowser = new PatientBrowser();
-    private ImagePanel imagePanel = new ImagePanel();
     private JFileChooser dicomFileChooser = new JFileChooser();
-    private PatientRepository patientRepository = new PatientRepository();
 
-
-    private void InitFrame(){
+    private void InitFrame(Builder builder){
         this.setTitle("DICOM-Viewer");
         this.setLayout(new BorderLayout());
         JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
@@ -43,8 +40,11 @@ public class MainWindow extends JFrame {
         infoContainer.setBorder(new TitledBorder("Info"));
         controlContainer.setBorder(new TitledBorder("Kontrast"));
         imageContainer.setBorder(new TitledBorder("Bild"));
-        browserContainer.setViewportView(patientBrowser);
-        imageContainer.add(imagePanel);
+
+        browserContainer.setViewportView(builder.getPatientBrowser().UIComponent());
+        infoContainer.add(builder.getInfoPanel().UIComponent());
+        controlContainer.add(builder.getControlPanel().UIComponent());
+        imageContainer.add(builder.getImagePanel().UIComponent());
     }
 
     private void InitMenu(){
@@ -67,33 +67,11 @@ public class MainWindow extends JFrame {
         JMenu fileMenu = new JMenu("Datei");
         menuBar.add(fileMenu);
         JMenuItem loadDirectoryMenu = new JMenuItem("Datei öffnen...");
-        loadDirectoryMenu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int returnVal = dicomFileChooser.showOpenDialog(MainWindow.this);
-                if(returnVal == JFileChooser.APPROVE_OPTION){
-                    File file = dicomFileChooser.getSelectedFile();
-                    try {
-                        patientRepository.LoadPatients(file.getAbsolutePath());
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
-                }
-                AddToBrowser();
-            }
-        });
         fileMenu.add(loadDirectoryMenu);
     }
 
-    private void AddToBrowser(){
-        for(Patient p : patientRepository.GetPatients()){
-            patientBrowser.add(p);
-        }
-    }
-
-    public MainWindow(){
-        InitFrame();
+    public MainWindow(Builder builder){
+        InitFrame(builder);
         InitMenu();
-        AddToBrowser();
     }
 }
