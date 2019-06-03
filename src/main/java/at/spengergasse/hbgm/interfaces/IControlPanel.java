@@ -6,7 +6,7 @@ package at.spengergasse.hbgm.interfaces;
  * getters are provided to retrieve these values
  */
 public interface IControlPanel extends IModuleBase, IModuleUI {
-    int getCenter();
-    int getWidth();
+    int getWindowCenter();
+    int getWindowWidth();
     int getAlpha();
 }

@@ -7,6 +7,8 @@ import at.spengergasse.hbgm.interfaces.IPixelMapper;
 
 import java.awt.image.BufferedImage;
 
+import static org.eclipse.persistence.config.CacheUsageIndirectionPolicy.Exception;
+
 public class PixelMapper implements IPixelMapper {
     @Override
     public BufferedImage Map(Instance instance) throws Exception {

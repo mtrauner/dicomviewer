@@ -26,7 +26,7 @@ public class PatientBrowser implements IPatientBrowser {
     private JTree tree = new JTree();
 
     public PatientBrowser(){
-        tree.addTreeSelectionListener(x -> selectionChanged());
+       // tree.addTreeSelectionListener(x -> selectionChanged());
         tree.setModel(model);
         tree.setCellRenderer(new Renderer());
     }
