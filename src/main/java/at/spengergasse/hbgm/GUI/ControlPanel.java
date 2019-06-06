@@ -5,17 +5,23 @@ import at.spengergasse.hbgm.interfaces.IObservable;
 import at.spengergasse.hbgm.interfaces.IObserver;
 import at.spengergasse.hbgm.tools.Builder;
 
+import javax.persistence.Convert;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ControlPanel extends JPanel implements IControlPanel {
-
+public class ControlPanel extends JTree implements IControlPanel {
+    private Set<IObserver> meineObserver = new HashSet<>();
 
     public  ControlPanel(){
-
+        this.addTreeSelectionListener(x ->{
+            //Benachrichtigung aller Observer
+            for(IObserver o: meineObserver){
+                o.changed(this);
+            }
+        });
     }
 
     @Override
@@ -43,6 +49,8 @@ public class ControlPanel extends JPanel implements IControlPanel {
 
     @Override
     public JComponent UIComponent() {
+        return this;
+        /*
         JPanel panel = new JPanel();
         GridLayout grid = new GridLayout();
         grid.setColumns(1);
@@ -55,12 +63,48 @@ public class ControlPanel extends JPanel implements IControlPanel {
         alpha.setSize(100,20);
         alpha.setMinimum(1);
         alpha.setMaximum(255);
-        grid.addLayoutComponent("center",center);
-        grid.addLayoutComponent("alpha",alpha);
+        //grid.addLayoutComponent("center",center);
+        //grid.addLayoutComponent("alpha",alpha);
+        JFrame meinJFrame = new JFrame();
+        meinJFrame.setSize(300, 100);
+        meinJFrame.setTitle("JSlider Beispiel");
+        JPanel meinPanel = new JPanel();
+
+        // JSlider-Objekt wird erzeugt
+        JSlider meinSlider = new JSlider();
+
+        // Mindestwert wird gesetzt
+        meinSlider.setMinimum(0);
+        // Maximalwert wird gesetzt
+        meinSlider.setMaximum(20);
+
+        // Die Abstände zwischen den
+        // Teilmarkierungen werden festgelegt
+        meinSlider.setMajorTickSpacing(5);
+        meinSlider.setMinorTickSpacing(1);
+
+        // Standardmarkierungen werden erzeugt
+        meinSlider.createStandardLabels(1);
+
+        // Zeichnen der Markierungen wird aktiviert
+        meinSlider.setPaintTicks(true);
+
+        // Zeichnen der Labels wird aktiviert
+        meinSlider.setPaintLabels(true);
+
+        // Schiebebalken wird auf den Wert 9 gesetzt
+        meinSlider.setValue(9);
+
+        // Schiebebalken wird dem Panel hinzugefügt
+        meinPanel.add(meinSlider);
+        meinPanel.add(alpha);
+
+        meinJFrame.add(meinPanel);
+        meinJFrame.setVisible(true);
 
         panel.setLayout(grid);
-        return panel;
-
+        return meinPanel;
+/*/
     }
 
     @Override
