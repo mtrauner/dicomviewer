@@ -10,6 +10,8 @@ import javax.persistence.Convert;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ComponentListener;
+import java.awt.event.MouseEvent;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,8 +19,22 @@ public class ControlPanel extends JTree implements IControlPanel {
     private Set<IObserver> observers = new HashSet<>();
 
     private IImagePanel imgpanel;
+    private ComponentListener centerListener;
+    private ComponentListener alphaListener;
+    private ComponentListener widthListener;
+    private JPanel controlpanel;
+    private JSlider centerslider = new JSlider(JSlider.HORIZONTAL,FPS_MIN,FPS_MAX,FPS_INIT);
+    private JSlider widthslider=new JSlider(JSlider.HORIZONTAL,FPS_MIN,FPS_MAX,FPS_INIT);;
+    private JSlider alphaslider=new JSlider(JSlider.HORIZONTAL,FPS_MIN,FPS_MAX,FPS_INIT);;
 
     public  ControlPanel(){
+
+        this.add(centerslider);
+        this.add(alphaslider);
+        this.add(widthslider);
+        addComponentListener(centerListener);
+        addComponentListener(alphaListener);
+        addComponentListener(widthListener);
         this.addTreeSelectionListener(x ->{
             //Benachrichtigung aller Observer
             for(IObserver o: observers){

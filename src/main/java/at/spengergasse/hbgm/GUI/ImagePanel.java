@@ -33,7 +33,7 @@ public class ImagePanel extends JPanel implements IImagePanel {
 
     public ImagePanel(){
         LoadImage();
-        this.setPreferredSize(new Dimension(image.getWidth(),image.getHeight()));
+        //this.setPreferredSize(new Dimension(image.getWidth(),image.getHeight()));
     }
 
     @Override
