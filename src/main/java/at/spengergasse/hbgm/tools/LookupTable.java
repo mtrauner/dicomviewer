@@ -1,8 +1,12 @@
 package at.spengergasse.hbgm.tools;
 
+import at.spengergasse.hbgm.interfaces.IControlPanel;
 import at.spengergasse.hbgm.interfaces.ILookupTable;
 import at.spengergasse.hbgm.interfaces.IObservable;
 import at.spengergasse.hbgm.interfaces.IObserver;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class LookupTable implements ILookupTable {
 
@@ -10,7 +14,12 @@ public class LookupTable implements ILookupTable {
     private int centre;
     private int alpha;
 
+    private IControlPanel cp;
+
+    private Set<IObserver> observers = new HashSet<>();
+
     public int Argb(int intensity){
+
         int y = (intensity-centre+width/2)*255/width;
         if(y > 255){
             y = 255;
@@ -56,17 +65,21 @@ public class LookupTable implements ILookupTable {
 
     @Override
     public void Configure(Builder builder) {
-
+        cp = builder.getControlPanel();
+        cp.registerObserver(this);
+        width = cp.getWindowWidth();
+        centre = cp.getWindowCenter();
+        alpha = cp.getAlpha();
     }
 
     @Override
     public void registerObserver(IObserver o) {
-
+        observers.add(o);
     }
 
     @Override
     public void removeObserver(IObserver o) {
-
+        observers.remove(o);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package at.spengergasse.hbgm.interfaces;
 
 import at.spengergasse.hbgm.entities.Instance;
-
 import java.awt.image.BufferedImage;
 
 /**
