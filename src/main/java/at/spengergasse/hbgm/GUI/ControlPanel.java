@@ -1,6 +1,7 @@
 package at.spengergasse.hbgm.GUI;
 
 import at.spengergasse.hbgm.interfaces.IControlPanel;
+import at.spengergasse.hbgm.interfaces.IImagePanel;
 import at.spengergasse.hbgm.interfaces.IObservable;
 import at.spengergasse.hbgm.interfaces.IObserver;
 import at.spengergasse.hbgm.tools.Builder;
@@ -13,12 +14,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ControlPanel extends JTree implements IControlPanel {
-    private Set<IObserver> meineObserver = new HashSet<>();
+    private Set<IObserver> observers = new HashSet<>();
+
+    private IImagePanel imgpanel;
 
     public  ControlPanel(){
         this.addTreeSelectionListener(x ->{
             //Benachrichtigung aller Observer
-            for(IObserver o: meineObserver){
+            for(IObserver o: observers){
                 o.changed(this);
             }
         });
@@ -109,11 +112,13 @@ public class ControlPanel extends JTree implements IControlPanel {
 
     @Override
     public void registerObserver(IObserver o) {
+        observers.add(o);
 
     }
 
     @Override
     public void removeObserver(IObserver o) {
+        observers.remove(o);
 
     }
 
