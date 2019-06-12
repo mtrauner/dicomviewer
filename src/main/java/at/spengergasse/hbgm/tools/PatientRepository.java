@@ -23,7 +23,7 @@ import java.util.Objects;
 public class PatientRepository implements IPatientRepository {
 
     private List<Patient> patientList = new ArrayList<>();
-
+/*
     public void Persist(String directoryPath) throws IOException {
         patientList = LoadPatients(directoryPath);
         EntityManager em = Persistence
@@ -45,59 +45,20 @@ public class PatientRepository implements IPatientRepository {
         em.close();
         return patientList;
     }
+*/
+
+    public List<Patient> GetPatients(){
+        return patientList;
+    }
 
     @Override
     public void Hinzufuegen(Patient p) throws Exception {
-
+        patientList.add(p);
     }
 
     @Override
     public void Entfernen(Patient p) throws Exception {
-
-    }
-
-    public List<Patient> LoadPatients(String path) throws IOException {
-
-        File directory = new File(path);
-        List<File> fileList = FindDicomFiles(directory);
-        for (File f: fileList) {
-            DicomInputStream dcmIn = new DicomInputStream(f);
-            DicomObject dcmObj = dcmIn.readDicomObject();
-
-            Patient patient = FindPatient(dcmObj.getString(Tag.PatientID));
-            if(patient == null){
-                patient = new Patient(dcmObj);
-                patientList.add(patient);
-            }
-            Study study = patient.FindeStudie(dcmObj.getString(Tag.StudyInstanceUID));
-            if(study == null){
-                study = new Study(dcmObj);
-                patient.StudieHzfg(study);
-            }
-            Series series = study.FindeSerie(dcmObj.getString(Tag.SeriesInstanceUID));
-            if(series == null){
-                series = new Series(dcmObj);
-                study.SerieHzfg(series);
-            }
-            Instance instance = series.FindeInstanz(dcmObj.getString(Tag.SOPInstanceUID));
-            if(instance == null){
-                instance = new Instance(dcmObj,f);
-                series.InstanzHzfg(instance);
-            }
-        }
-        return patientList;
-    }
-
-    private Patient FindPatient(String patID){
-        if(patientList != null) {
-            for (Patient patient : patientList) {
-
-                if (Objects.equals(patient.getId(), patID)) {
-                    return patient;
-                }
-            }
-        }
-        return null;
+        patientList.remove(p);
     }
 
     private List<File> FindDicomFiles(File dir){
